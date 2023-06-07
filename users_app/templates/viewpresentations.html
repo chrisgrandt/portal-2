@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col"><a href="{% url 'add_presentation' %}"><img src="{% static 'images/add.png' %}"></a></div>
+    <div class="col"><h3>Current Presentations</h3></div>
+    
+    
+  </div>
+    
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Presentation Name</th>
+            
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            
+    
+          </tr>
+        </thead>
+        <tbody>
+            {% for presentation in presentations %}
+            <tr>
+                <th scope="row">{{presentation.display_name}}</th>
+                
+             
+                <th scope="col"><a href="{% url 'edit_presentation' presentation.pk %}"><button>Edit</button></a></th>
+                <th scope="col"><a href="{% url 'delete_presentation' presentation.pk %}"><button>Delete</button></a></th>
+                
+    
+            {% endfor %}
+         
+          
+        </tbody>
+      </table>
+</div>
+
+<div class="container">
+    <div class="row">
+      <div class="col"><a href="{% url 'create_presentationaccess' %}"><img src="{% static 'images/add.png' %}"></a></div>
+      <div class="col"><h3>Presentation Access</h3></div>
+      
+      
+    </div>
+    
+    
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">User</th>
+            <th scope="col">Presentation Name</th>
+            <th scope="col">Delete</th>
+            
+    
+          </tr>
+        </thead>
+        <tbody>
+            {% for acc in access %}
+            <tr>
+                <th scope="row">{{acc.user_reference}}</th>
+                <th scope="row">{{acc.related_presentation}}</th>
+                <th scope="col"><a href="{% url 'delete_presentationaccess' acc.pk %}"><button>Delete</button></a></th>
+                
+    
+            {% endfor %}
+         
+          
+        </tbody>
+      </table>
+</div>
+
+  
+{% endblock content %}

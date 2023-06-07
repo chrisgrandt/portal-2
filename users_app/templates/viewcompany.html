@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <a href="{% url 'addcompany' %}"><img src="{% static 'images/add.png' %}"></a>
+    </div>
+    <div class="col">
+      <h3>Users</h3>
+    </div>
+  </div>
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Company</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for company in companies %}
+        <tr>
+            <th scope="row">{{company.company_name}}</th>
+            <th scope="col"><a href="{% url 'edit_company' company.pk %}"><button>Edit</button></a></th>
+            <th scope="col"><a href="{% url 'delete_company' company.pk %}"><button>Delete</button></a></th>
+
+        {% endfor %}
+     
+      
+    </tbody>
+  </table>
+</div>
+
+  
+{% endblock content %}
