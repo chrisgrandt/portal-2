@@ -1,0 +1,168 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+
+{% block content %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Project Weekly Tracking</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu-sidebar.css">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
+</head>
+
+<body style="text-align: center;">
+    <div class="text-center" id="wrapper" style="margin-top: 90px;position: fixed;width: 200px;margin-right: 20px;font-size: 14px;font-family: 'Roboto Condensed', sans-serif;text-align: left;">
+        <div id="sidebar-wrapper" style="background: var(--bs-white);width: 200px;color: var(--bs-black);text-align: center;backdrop-filter: opacity(0);">
+            <ul class="sidebar-nav" style="position: fixed;text-align: center;">
+                {% for pipeline in pipelines %}
+                 <li style="position: static;overflow: auto;"> <a href="{% url 'weeklytracker' forloop.counter0 %}" style="color: var(--bs-black);text-align: center;background: #ffffff;position: relative;width: 200px;overflow: auto;">{{pipeline}}</a></li> 
+                {% endfor %}
+                
+                
+                
+            </ul>
+        </div>
+        <div class="page-content-wrapper"></div>
+    </div>
+    <div class="container" style="margin-top: 90px;position: relative;margin-left: 250px;">
+        <div class="row">
+            <div class="col">
+                <p style="text-align: center;font-size: 43px;font-family: 'Roboto Condensed', sans-serif;font-weight: bold;">{{ project }}</p>
+                <div class="row">
+                    <div class="col">
+                        <p style="font-size: 24px;text-align: left;">Start Date: {{ datestart }}</p>
+                    </div>
+                    <div class="col">
+                        <p style="font-size: 24px;text-align: left;">End Date: {{ dateend }} </p>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin: 0px;margin-top: 10px;">
+            <div class="col col-12 col-md-4">
+                <div class="card" style="font-family: 'Roboto Condensed', sans-serif;">
+                    <div class="card-body">
+                        <h4 class="text-center card-title" style="font-weight: bold;">Bios Total</h4>
+                        <p class="fw-bold text-center card-text" style="color: var(--bs-blue);font-size: 92px;">{{ biototal }}</p>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title" style="font-size: 18px;font-weight: bold;">2 Weeks Ago</h4>
+                                        <p class="card-text" style="color: var(--bs-blue);font-size: 24px;font-weight: bold;">{{twbiocount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title" style="font-size: 18px;font-weight: bold;">Last Week</h4>
+                                        <p class="card-text" style="color: var(--bs-blue);font-size: 24px;font-weight: bold;">{{lwbiocount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="card" style="font-family: 'Roboto Condensed', sans-serif;">
+                    <div class="card-body">
+                        <h4 class="text-center card-title" style="font-weight: bold;">Presented Total</h4>
+                        <p class="fw-bold text-center card-text" style="color: var(--bs-blue);font-size: 92px;">{{ presentedtotal }}</p>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title" style="font-size: 18px;font-weight: bold;">2 Weeks Ago</h4>
+                                        <p class="card-text" style="color: var(--bs-blue);font-size: 24px;font-weight: bold;">{{twpresentedcount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title" style="font-size: 18px;font-weight: bold;">Last Week</h4>
+                                        <p class="card-text" style="color: var(--bs-blue);font-size: 24px;font-weight: bold;">{{lwpresentedcount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="card" style="font-family: 'Roboto Condensed', sans-serif;">
+                    <div class="card-body">
+                        <h4 class="text-center card-title" style="font-weight: bold;">Accepted Total</h4>
+                        <p class="fw-bold text-center card-text" style="color: var(--bs-blue);font-size: 92px;">{{ acceptedtotal }}</p>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title" style="font-size: 18px;font-weight: bold;">2 Weeks Ago</h4>
+                                        <p class="card-text" style="color: var(--bs-blue);font-size: 24px;font-weight: bold;">{{twacceptedcount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title" style="font-size: 18px;font-weight: bold;">Last Week</h4>
+                                        <p class="card-text" style="color: var(--bs-blue);font-size: 24px;font-weight: bold;">{{lwacceptedcount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p style="text-align: center;font-size: 30px;font-family: 'Roboto Condensed', sans-serif;font-weight: bold;margin-top: 10px;margin-bottom: 10px;">Adjusted Weekly Targets</p>
+                <div class="row">
+                    <div class="col">
+                        <p style="text-align: left;font-size: 24px;">Weeks Remaining: {{ weeksremaining }}</p>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin: 0px;margin-top: 10px;">
+            <div class="col col-12 col-md-4">
+                <div class="card" style="font-family: 'Roboto Condensed', sans-serif;">
+                    <div class="card-body">
+                        <h4 class="text-center card-title" style="font-weight: bold;">Bios Per Week Target</h4>
+                        <p class="fw-bold text-center card-text" style="color: var(--bs-blue);font-size: 92px;">{{weeklytargetbios}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="card" style="font-family: 'Roboto Condensed', sans-serif;">
+                    <div class="card-body">
+                        <h4 class="text-center card-title" style="font-weight: bold;">Presented Per Week Target</h4>
+                        <p class="fw-bold text-center card-text" style="color: var(--bs-blue);font-size: 92px;">{{weeklytargetpresented}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="card" style="font-family: 'Roboto Condensed', sans-serif;">
+                    <div class="card-body">
+                        <h4 class="text-center card-title" style="font-weight: bold;">Accepted Per Week Target</h4>
+                        <p class="fw-bold text-center card-text" style="color: var(--bs-blue);font-size: 92px;">{{weeklytargetaccepted}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/Sidebar-Menu.js"></script>
+</body>
+
+{% endblock content %}

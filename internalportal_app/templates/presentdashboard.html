@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="wrapper">
+
+    <!-- Page Content -->
+    <div class="container" style="margin-top: 60px;">
+    <div id="content">
+
+        <div class="iframe-container" height="700" width="1000">
+            {{dashboards | safe}}
+        </div>
+
+    </div>
+    </div>
+
+</div> 
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="wrapper">
+
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header text-center">
+            <h3 class="align-middle">Dashboard Selection</h3>
+        </div>
+        <ul class="list-group"></ul>
+        {% for db in analytics  %}
+        <li class="list-group-item list-group-item-dark">
+            <a href="{% url 'dashboardselect' db.related_dashboard %}">{{db.related_dashboard}}</a>
+        </li>
+              
+           
+         
+        {% endfor %}
+        </ul>
+
+        <br>
+        
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-dark">
+                    <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle Sidebar</span>
+                </button>
+
+            </div>
+        </nav>
+
+        <div class="iframe-container" height="700" width="1000">
+            {{dashboards | safe}}
+        </div>
+
+    </div>
+
+</div> 
+
+
+
+
+{% endblock content %}

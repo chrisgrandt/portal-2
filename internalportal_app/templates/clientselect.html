@@ -1,0 +1,30 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block content %}
+
+<div id="content">
+
+    
+    <div class="container" style="margin-top: 60px;">
+        <h1 style="text-align:center" >Select a Client</h1>
+        {% for client in clients %}
+        
+        {% if forloop.first %}<div class="row" style="margin-top: 25px;">{% endif %} 
+        {% if client|stringformat:"s" != "Talent Intelligence" %}
+          {% with 'images/'|add:client.logo_url as image_static %}
+            <a class="col-md-3" href="{% url 'selectdborpipeline' client.company_name  %}"><div><img style="width: 100%; height: auto;" src="{% static image_static %}" alt="{{ client.company_name }}" /></div></a>
+            {% endwith %}
+
+            {% if forloop.counter|divisibleby:4 %}</div> <div class="row" style="margin-top: 25px;">{% endif %}
+            {% if forloop.last %}</div>{% endif %}   
+        {% endif %}
+            {% endfor %}
+        
+        
+            
+    </div>
+
+</div>
+  
+{% endblock content %}

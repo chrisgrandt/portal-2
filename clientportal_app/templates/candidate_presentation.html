@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="wrapper" style='height: 800px; width: 1920px;'>
+    <!-- Sidebar -->
+    <div>
+    <nav id="sidebar" style='height: 800px; width: 25%'>
+      <div class="sidebar-header text-center">
+          <h3 class="align-middle">Candidates</h3>
+      </div>
+      <ul class="list-group"></ul>
+      {% for mykey, myvalues in zippedLists  %}
+      <li class="list-group-item list-group-item-dark">
+          
+          <a href="{% url 'candidateselect' mykey %}">{{mykey}}</a>
+      </li>
+            
+         
+       
+      {% endfor %}
+      </ul>
+
+    </nav>
+    </div>       
+    <object style='height: 800px; width: 75%;'
+
+    data="{{resume|safe}}"
+
+    Content-Type="application/pdf" > 
+
+   <embed style='height: 800px; width: 70%;' src="{{resume|safe}}==&embedded=true"  
+
+          frameborder="0">
+  </object> 
+
+  
+
+ 
+</div>
+
+{% endblock content%}

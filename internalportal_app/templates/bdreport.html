@@ -1,0 +1,14 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block content %}
+
+<div id="content">
+
+    <div class="iframe-container" height="800" width="1200">
+        {{iframe | safe}}
+    </div>
+
+</div>
+  
+{% endblock content %}

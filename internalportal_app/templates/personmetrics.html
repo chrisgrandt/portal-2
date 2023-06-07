@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="ml-2 mt-5">
+
+    <a href="{% url 'personmetrics' 'metrics' %}" class="btn btn-primary ml-2">Metrics</a>
+    <a href="{% url 'personmetrics' 'capacity' %}" class="btn btn-primary">Capacity</a>
+
+</div>
+
+<h1 class="btn-group ml-2 mt-2">{{ welcome_text }}</h1>
+
+<br>
+  <div class="ml-2 col-6">
+    {{table|safe}}
+  </div>
+    
+<br>
+    <div class="container-sm ml-2 col-4">
+        <table class="table-sm table-bordered">
+            {% for people in missing %}
+              <tr>
+                  <td>{{people}}</td>
+              </tr>
+            {% endfor %}
+        </table>
+       
+    </div>
+{% endblock content %}
+

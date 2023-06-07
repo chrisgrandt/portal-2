@@ -1,0 +1,120 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+            <h1>{{ welcome_text }}</h1>
+
+    </div>
+
+    <!-- <div class="container ma-3">
+      {% if not user.is_manager %}
+       {{table|safe}}
+      {% endif %}
+      
+
+    </div> -->
+
+
+    <div class="container mt-5">
+
+
+        <div class="row">
+          
+          <div class="col-sm">
+            <a href="{% url 'projectlevel'  %}" target="_blank" class="block nolink">
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body text-center">
+                    
+                    <h5 class="card-title">Project Level Reporting</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Project Metrics and Progress</h6>
+                    <img class = "card-img-top mb-3 w-auto" src="{% static 'images/metrics.png' %}" alt="Metrics" style="width:64px;height:64px;">
+                    <p>View the status of projects ... </p>
+                
+                  </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm">
+            <a href="{% url 'weeklytracker' 0  %}" target="_blank" class="block nolink">
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body text-center">
+                    
+                    <h5 class="card-title">Weekly Project Targets</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Targets and Progress</h6>
+                    <img class = "card-img-top mb-3 w-auto" src="{% static 'images/metrics.png' %}" alt="Metrics" style="width:64px;height:64px;">
+                    <p>View the status of projects ... </p>
+                
+                  </div>
+              </div>
+            </a>
+          </div>
+          
+          <div class="col-sm">
+            <a href="{% url 'personmetrics' 'metrics' %}" class="block nolink">
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body text-center">
+                    
+                    <h5 class="card-title">Person Metrics</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Individual Metrics and Progress</h6>
+                    <a href="{% url 'personmetrics' 'metrics' %}" class="card-link"><img class = "card-img-top mb-3 w-auto" src="{% static 'images/metrics.png' %}" alt="Metrics" style="width:64px;height:64px;"></a>
+                    <p><a href="{% url 'personmetrics' 'metrics' %}" class="card-text">View individual progress. </a></p>
+                
+                  </div>
+              </div>
+            </a>
+          </div>  
+          
+          <div class="col-sm">
+            <a href="#" class="block nolink">
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body text-center">
+                    
+                    <h5 class="card-title">Project Creation Request</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Submit an Avature Project</h6>
+                    <a href="#" class="card-link"><img class = "card-img-top mb-3 w-auto" src="{% static 'images/metrics.png' %}" alt="Metrics" style="width:64px;height:64px;"></a>
+                    <p><a href="#" class="card-text">Available soon</a></p>
+                
+                  </div>
+              </div>
+            </a>
+          </div>        
+
+          
+
+        </div>
+    </div>
+    <!-- row 1 -->
+    <div class="container mt-3">
+      <h1>Site Links</h1>
+
+      {% for link in links %}
+        {% if forloop.first %}<div class="row">{% endif %}    
+          <div class="col-sm">
+            <a href="{{ link.site_url }}" target="_blank" class="block nolink">
+              <div class="card" style="width: 18rem;">
+            
+                <div class="card-body text-center">
+                  
+                  <h5 class="card-title">{{ link.title }} </h5>
+                  
+                  <img class = "card-img-top mb-3 w-auto" src="{{ link.logo_url }}" alt="{{ link.title }}" style="width:75px;height:75px;">
+                 
+                <p>{{ link.description }}</p> 
+                </div>
+              </div>
+            </a>
+          </div>
+
+          {% if forloop.counter|divisibleby:3 %}</div> <div class="row mt-3">{% endif %}
+          {% if forloop.last %}</div>{% endif %}             
+       
+      {% endfor %}
+
+    </div>
+   
+
+{% endblock content %}

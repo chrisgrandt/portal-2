@@ -1,0 +1,89 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% load metrics_extra %}
+
+{% block content %}
+<h1>{{ welcome_text }}</h1>
+
+{% if projects %} 
+    <button><a href="{% url 'projectmetrics' %}">Choose a New Client</a></button>
+         
+         <table class="table-sm table-striped table-hover">
+             
+                <thead>
+                    <tr>
+                        <th scope="col">Project</th>
+                        <th scope="col">Period</th>
+
+                        {% for step in steps %}
+                        <th scope="col">{{ step }}</th>
+                        {% endfor %}
+                       
+                    </tr>
+                </thead>
+
+             {% else %}
+                <ul>
+                    {% for client in clients %}
+                    <a href="{% url 'display_metrics' client.Client client.Alignment%}"><li>{{client.Client}} ({{client.Alignment}})</li></a>
+                      
+                    {% endfor %}
+                </ul>
+             {% endif %}
+             
+
+             <tbody>
+                    {% for proj, metrics in projects.items %}
+                        <tr>
+                        <th rowspan='2' style = "text-align:center; vertical-align:middle">{{proj}}</th>
+                        
+
+                        <td>Overall</td>
+
+                        {% for metric, value in metrics.items  %}
+                            {% if value.4 == 'Good'  %}
+                            <td class="bg-success">{{ value.0 }} of {{ value.2 }}</td>
+                            {% elif value.4 == 'Bad'  %}
+                            <td class="bg-danger">{{ value.0 }} of {{ value.2 }}</td>
+                            {% elif value.4 == 'Warning'  %}
+                            <td class="bg-warning">{{ value.0 }} of {{ value.2 }}</td>
+                            {% else %}
+                            <td>{{ value.0 }} of {{ value.2 }}</td>
+                            {% endif %}
+                        {% endfor %}
+                       
+                                        
+                    <tr>
+                        
+                    <td>Last Week</td>
+                        {% for metric, value in metrics.items  %}
+
+                            {% if value.5 == 'Good'  %}
+                            <td class="bg-success">{{value.1}} of {{ value.3 }}</td>
+                            {% elif value.5 == 'Bad'  %}
+                            <td class="bg-danger">{{value.1}} of {{ value.3 }}</td>
+                            {% elif value.5 == 'Warning'  %}
+                            <td class="bg-warning">{{value.1}} of {{ value.3 }}</td>
+                            {% else %}
+                            <td>{{value.1}} of {{ value.3 }}</td>
+                            {% endif %}
+                         
+                        {% endfor %}
+                    
+                    </tr>
+                    
+                    
+                    
+                    </tr>
+
+                        
+                    {% endfor %}
+             </tbody>
+         </table>   
+
+          
+
+
+
+
+{% endblock content %}

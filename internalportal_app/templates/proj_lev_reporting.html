@@ -1,0 +1,118 @@
+{% extends "base.html" %} 
+
+{% load static %} 
+{% load metrics_extra %}
+{{ redirect_to_login_immediately }}
+
+{% block content %}
+
+
+<div style="width:95%; margin:auto; " class="container text-center project">
+    <form action="{% url 'projectlevel' %}" method="POST">
+        {% csrf_token %}
+    <select onchange="this.form.submit()" name="employee" id="employeeselect" class="employee-dropdown">
+          <option value="none">Select Employee</option>
+        {% for option in options %}
+          <option value="{{option.first_name}} {{option.last_name}}">{{option.first_name}} {{option.last_name}}</option>
+        {% endfor %}
+    </select>
+    </form>
+
+    {% for key, value in reporting.items %}
+    <div class="row" id="{{value.9}}">
+        <a href="https://talentintelligence.avature.net/#Pipeline/{{value.9}}" target="_blank" style="text-decoration: none;"><h3 style="background-color: rgb(16,117,169); color: antiquewhite;">{{key}}</h3></a>
+    </div> 
+
+    <div class="row">
+        <div class="col-3">
+            <b>Owner :</b>  {{value.0}}
+        </div>
+        <div class="col-3">
+        <b>Additional Consultants :</b> {{value.1}}
+        </div>
+        <div class="col-3">
+            <b>Start Date:</b> {{value.2}}
+        </div>
+        <div class="col-3">
+            <b>End Date:</b> {{value.3}}
+        </div>
+    </div>
+
+    <hr style="margin: 0px auto 0px; width: 95%;">
+        <div class="row">
+            <div class="col-3">
+            <h5 style="margin: 0px;"><b>Contract Deliverables </b></h5>
+            </div>
+            <div class="col-3">
+                <b>Accepted :</b>  {{value.4}}
+            </div>
+            <div class="col-3">
+                <b>Successful Outcome:</b>  {{value.5}}
+            </div>
+        </div>
+    <hr style="margin: 0px auto 0px; width: 95%;">
+        <div class="row">
+            <div class="col-3">
+            <h5 style="margin: 0px;"><b>Delivered </b></h5>
+            </div>
+            <div class="col-3">
+                <b> Presented:</b>  {{value.6}}
+            </div>
+            <div class="col-3">
+                <b> Accepted:</b>  {{value.7}}
+            </div>
+            <div class="col-3">
+                <b> Successful Outcome:</b>  {{value.8}}
+            </div>
+        </div> 
+    <hr style="margin: 0px auto 0px; width: 95%;">
+        <div class="row"><h4 style="margin: auto; width: auto ;">Current Step (Days in step)</h4></div>
+        <hr style="margin: 0px auto 0px; width: 95%;">
+        <div class="row">
+            <div class="col-4"><h5>Submitted</h5>
+            {% for project, person in submitted.items %}
+                {% if project == key %}
+                    {% for p in person %}
+                    <p>{{p}}</p>
+
+                        {% endfor %}
+                {% endif %}
+                
+
+            {% endfor %}
+        </div>
+            <div class="col-4"><h5>Interviewing</h5>
+            {% for project, person in interview.items %}
+        
+                {% if project == key %}
+                    {% for p in person %}
+                  
+            <p>{{p}}</p>
+                    {% endfor %}
+                {% endif %}
+
+            {% endfor %}
+            </div>
+            <div class="col-4"><h5>Successful Outcome</h5>
+            {% for project, person in offer.items %}
+        
+                {% if project == key %}
+                    {% for p in person %}
+
+                <p>{{p}}</p>
+                        {% endfor %}
+                {% endif %}
+
+            {% endfor %}
+            </div>
+        
+    
+    {% endfor %}
+
+
+    
+</div>
+
+{% endblock content %}
+
+

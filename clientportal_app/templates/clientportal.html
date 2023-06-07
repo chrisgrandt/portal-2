@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+            <h1>{{ welcome_text }}</h1>
+
+    </div>
+
+    <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                  <div class="card" style="width: 18rem;">
+                      <div class="card-body text-center">
+                        
+                        <h5 class="card-title">Dashboards</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Advanced Analytics Designed for Your Business</h6>
+                        <a href="{% url 'tianalytics' %}" class="card-link"><img class = "card-img-top mb-3 w-auto" src="{% static 'images/metrics.png' %}" alt="Metrics"></a>
+                        <p class="card-text">View your Dashboards ... </p>
+                        <a href="{% url 'tianalytics' %}" class="card-link">Analytics</a>
+                      </div>
+                  </div>
+              </div>
+              
+         </div>
+
+{% endblock content %}

@@ -1,0 +1,92 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+
+{% block content %}
+<div style="margin-top: 60px;"></div>
+<h1 style="text-align: center;">{{ exportname }}</h1>
+<div class="mx-auto" style="width: 1900px;">
+    <table class="table"
+        id="table"
+       
+                      data-toggle="table" 
+                      
+                      data-show-export = "true"
+                      data-show-columns-toggle-all="true"
+                      
+                      data-export-types = "['csv','excel', 'xlsx']"  
+                      data-export-options = '{"fileName": "{{ exportname }}"}'
+       
+    >
+        <thead>
+            <tr>
+                <th></th>
+                {% for i in  datelist %}
+                <th data-field="{{i}}">{{ i }}</th>
+                {% endfor %}
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bio Calls: Target</td>
+                {% for i in datelist %}
+                <td>6</td>
+                {% endfor %}
+                <td>102</td>
+            </tr>
+            <tr>
+                <td>Bio Calls: Results</td>
+                {% for i in datelist %}
+                <td>0</td>
+                
+                {% endfor %}
+                <td>0</td>
+            </tr>
+            <tr>
+                <td style:"height=10px;"></td>
+            </tr>
+            <tr>
+                <td>Presented: Target</td>
+                {% for i in datelist %}
+                <td>3</td>
+                {% endfor %}
+                <td>51</td>
+            </tr>
+            <tr>
+                <td>Presented: Results</td>
+                {% for i in datelist %}
+                <td>0</td>
+                {% endfor %}
+                <td>0</td>
+            </tr>
+            <tr>
+                <td style:"height=10px;"></td>
+            </tr>
+            <tr>
+                <td>Accepted: Target</td>
+                {% for i in datelist %}
+                <td>2</td>
+                {% endfor %}
+                <td>34</td>
+            </tr>
+            <tr>
+                <td>Accepted: Results</td>
+                {% for i in datelist %}
+                <td>0</td>
+                {% endfor %}
+                <td>0</td>
+            </tr>
+
+
+        </tbody>
+            
+
+        
+    </table>
+</div>
+
+    
+
+
+{% endblock content %}

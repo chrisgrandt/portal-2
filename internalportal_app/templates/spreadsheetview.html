@@ -1,0 +1,85 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+
+{% block content %}
+
+
+<div class="container-fluid" style="height: 55%;">
+    
+    <div class="table-bordered">
+   
+    <table
+    class="table"
+    id="table"
+    data-toggle="table" 
+    data-sort-class="table-active"
+    data-height="auto"
+    data-sortable="true"
+    data-search="true"
+    data-pagination="true"
+    data-page-list="[10, 25, 50, All]"
+    data-page-size="All"
+    data-show-export = "true"
+    data-show-columns-toggle-all="true"
+    data-filter-control="true" 
+    data-show-search-clear-button="true"
+    data-export-types = "['csv','excel']"   
+    >
+
+    <thead >
+        <tr>
+            {% for head in headers  %}
+            {% if head not in exempt %}              
+                     
+              <th data-field="{{ head }}" data-sortable="true" data-filter-control="select" data-filter-order-by="asc" title="{{ head }}"> {{ head }}</th>
+
+              {% elif head == "Last note" %}
+              <th data-field="{{ head }}" title="Last note" data-width="500">Last note</th>
+              
+              {% else %}
+              
+              <th data-field="{{ head }}" title="{{ head }}"> {{ head }}</th>
+              
+              {% endif %}
+            {% endfor %}
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for datapoint in projectdata %} 
+        <tr>
+            <td> {{ datapoint.0 }}</td>
+            <td> {{ datapoint.1 }}</td>
+            <td> {{ datapoint.2 }}</td>
+            <td> {{ datapoint.3 }}</td>
+            <td> {{ datapoint.4 }}</td>
+            <td> {{ datapoint.5 }}</td>
+            <td> {{ datapoint.6 }}</td>
+            <td> {{ datapoint.7 }}</td>
+            <td> {{ datapoint.8 }}</td>
+            <td> {{ datapoint.9 }}</td>
+            <td> {{ datapoint.10 }}</td>
+            <td> {{ datapoint.11 }}</td>
+            <td> {{ datapoint.12 }}</td>
+            <td> {{ datapoint.13 }}</td>
+            <td> {{ datapoint.14 }}</td>
+            <td> {{ datapoint.15 }}</td>
+            <td> {{ datapoint.16 }}</td>
+            <td> {{ datapoint.17 }}</td>
+
+        </tr>
+        
+        {% endfor %}
+       
+    </tbody>
+
+</table>
+
+
+</div>
+</div>
+
+
+
+{% endblock content %}

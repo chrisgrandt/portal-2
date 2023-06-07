@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap_icons %}
+
+{% block content %}
+<!-- Breadcrumb below header -->
+<!-- <ol class="breadcrumb fixed-top" style="margin-top: 100px;">
+  {% if portal == "internal" %}
+  <li class="breadcrumb-item sticky-top"><a href="{% url 'selectdborpipeline' clientname %}"><span>Presentation Selection</span></a></li>
+  {% else %}
+  <li class="breadcrumb-item sticky-top"><a href="{% url 'stakeholderdelivery'%}"><span>Back</span></a></li>
+  {% endif %}
+</ol> -->
+
+<!-- Pipeline name header -->
+<div class="container" style="margin-top: 60px;">
+  <div class="d-flex p-2 justify-content-center margin-top:60px">
+  <h1 class="roboto" style="font-family: 'Roboto Condensed'; font-weight: bold; background-color:rgb(51, 69, 95); color: antiquewhite; width: 100%; text-align: center;">{{ pipelinename }}</h1>
+  </div>
+</div>
+
+<div class="container-fluid" style="height: 50%;">
+  <div class="row" style="margin-top: 10px;">
+      <div class="col">
+          <h2 class="text-center">Candidate List</h2>
+      </div>
+  </div>
+
+  <div class="row" style="margin-top: 0;">
+
+      {% if iFrame != None %}
+      <div class="col">
+        <a href="{% url 'pipelinedashboard' clientname pipeline_id %}" target="_blank"><button type="button" class="insight btn-info" data-toggle="tooltip" data-placement="top" >Talent Dashboard {% bs_icon 'clipboard2-data-fill' %}</button></a>
+      </div>                
+      {% endif %}
+      
+  </div> 
+
+  <div class="container-fluid" style="height: 95%; width: 95%;">       
+          <div class="table-responsive table-bordered">
+            <table class="table"
+            id="table"
+            data-toggle="table" 
+            data-sort-class="table-active"
+            data-sortable="true"
+            data-search="true"
+            data-pagination="true"
+            data-page-list="[10, 25, 50, All]"
+            data-page-size="All"
+            data-height="675"
+            data-show-export = "true"
+            data-show-columns-toggle-all="true"
+            data-filter-control="true" 
+            data-show-search-clear-button="true"
+            data-export-types = "['csv','excel', 'xlsx']"                                          
+                >
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th data-field="Company" data-sortable="true" >Company</th>
+
+                            {% if project_type != "Mapping" and portalBio == "Yes" %}
+                              <th data-field="PersonID">Candidate Bio</th>
+                            {% endif %}
+                            
+                            <th data-field="Name" data-sortable="true">Name</th>
+                            <th data-field="Title" data-sortable="true">Title</th>
+                            <th data-field="Start">Start Date</th>
+                            <th data-field="Location">Location</th>
+                            <th data-field="Notes">Notes</th>
+                            <th data-field="Status"  aria-label="Status" data-filter-control="select">Status</th>
+                            {% if project_type != "Mapping" %}
+                              <th data-field="Updated" data-sortable="true">Last Step Update</th>
+                            {% endif %}
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for name, resume, status, title, employer, note, pNote, cFeedback, BioCompleted, Interview1, Interview2, Pipelined, Presented, Socialization, Photo, StartDate, Location, PersonID, DateUpdate, portalbio,iFrame, pipelineID ,ProjectType in zippedLists  %}
+                      <tr>
+                        {% if Photo != None %}
+
+                        <td style="text-align: center ;"><div style="width: 100px; height: 100px; text-align: center; margin: auto;"><img src="{{Photo}}" onerror="this.onerror=null; this.src='https://www.seekpng.com/png/detail/46-462652_this-icon-for-gender-neutral-user-is-an.png';"  alt="" class="rounded-circle profile-pic" style="width: 75% ;"></div></td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        <td>{{employer}}</td>
+                        {% if project_type != "Mapping" and portalBio == "Yes" %}
+                            {% if Presented != None %}
+                              <td><a href="{% url 'candidatebio' clientname PersonID %}" target="_blank">Candidate Bio</a></td>
+                            {% else %}
+                              <td></td>
+                            {% endif %}
+                        {% endif %}
+                      
+                        
+                        <td><a href="#" data-bs-toggle="modal" data-bs-target="#myModal{{forloop.counter}}">{{name}}</a></td>
+                        <td>{{title}}</td>
+                        <td>{{StartDate}}</td>
+                        <td>{{Location}}</td>
+                        <td><p class="badge rounded-pill bg-secondary text-center float-none" style="margin-bottom: 3px;">Date Presented: {{Presented}}</p><br>
+                        {% if note != None %}
+                        <p style="margin-bottom: 3px;">{{note}}</p><br>
+                        {% endif %}
+                        {% if pNote != None %}
+                        <p style="margin-bottom: 3px;">{{pNote}}</p><br>
+                        {% endif %}
+                        {% if cFeedback != None %}
+                        <p style="margin-bottom: 3px;">Client Feedback: {{cFeedback}}</p><br>
+                        {% endif %}
+                        </td>
+                        <!-- <td>{{status}}</td> -->
+                        
+                        
+                        {% if status == "Hired" or status == "Designated Successor" %}
+                        <td class="bg-success text-center">{{status}}</td>
+                        {% elif status == "Pipelined" %}
+                        <td class="bg-info text-center">{{status}}</td>
+                        {% elif status == "Client Declined" %}
+                        <td class="bg-danger text-center">{{status}}</td>
+                        {% elif status == "Candidate Declined" %}
+                        <td class="bg-danger text-center">{{status}}</td>
+                        {% elif status == "TI Declined" %}
+                        <td class="bg-danger text-center">{{status}}</td>
+                        {% else %}
+                        <td class="text-center">{{status}}</td>         
+                        {% endif %}
+
+                        {% if project_type != "Mapping" %}
+                          <td>{{DateUpdate}}</td>
+                        {% endif %}
+
+                        
+                  
+                        
+                      </tr>
+                        
+                      {% endfor %}
+
+                        
+                    </tbody>
+                </table>
+              </div> 
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        {% for name, resume, status, title, employer, note, pNote, cFeedback, BioCompleted, Interview1, Interview2, Pipelined, Presented, Socialization, Photo, StartDate, Location, PersonID, DateUpdate, portalbio ,iFrame, pipelineID, ProjectType in zippedLists  %} 
+    <div id="myModal{{forloop.counter}}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <object style='height: 1000px; width: 100%;' data="{{resume|safe}}" Content-Type="application/pdf"> 
+          <embed style='height: 1000px; width: 100%;' src="{{resume|safe}}==&embedded=true" frameborder="0">
+          </object> 
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+          
+            
+
+        </div>
+      </div>
+    </div> 
+
+
+{% endblock content%}
+
+
